@@ -31,7 +31,7 @@ class PlayState extends FlxState {
 		// ========= Add Characters
 		var text = new FlxText(10, 10, 100, "Hello, World!");
 		var player = new Player(20, 0, PLAYER, playerBullets);
-		var boss = new WhiteKnight(20, 150, BOSS, enemyBullets);
+		var boss = new WhiteKnight(20, 150, BOSS, enemyBullets, words);
 
 		this.player = player;
 
@@ -93,10 +93,25 @@ class PlayState extends FlxState {
 
 	public function updatePlayerCollisions() {
 		FlxG.overlap(player, enemyBullets, enemyBulletTouchPlayer);
+		FlxG.overlap(player, enemies, playerTouchEnemy);
 	}
 
 	public function updateEnemyCollisions() {
 		FlxG.overlap(enemies, playerBullets, playerBulletTouchEnemy);
+	}
+
+	public function playerTouchEnemy(player:Player, enemy:Enemy) {
+		shakeCamera();
+		player.health -= 1;
+		enemy.health -= 1;
+		if (player.health <= 0) {
+			player.kill();
+		}
+
+		if (enemy.health <= 0) {
+			bossHealthBar.kill();
+			enemy.kill();
+		}
 	}
 
 	public function playerBulletTouchEnemy(enemy:Enemy, bullet:Bullet) {
