@@ -37,7 +37,7 @@ class Player extends Character {
 
 		if (firing && fireCD <= 0) {
 			fireCD = BULLETCD;
-			trace('Firing');
+
 			var xOffset = 12;
 			this.firePoint = new FlxPoint(8 + x, 8 + y);
 			var bullet = null;
