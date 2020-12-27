@@ -8,6 +8,7 @@ import flixel.util.FlxAxes;
 class PlayState extends FlxState {
 	public var characters:FlxTypedGroup<Character>;
 	public var enemies:FlxTypedGroup<Enemy>;
+	public var words:FlxTypedGroup<FlxSprite>;
 	public var player:Player;
 	public var playerBullets:FlxTypedGroup<Bullet>;
 	public var enemyBullets:FlxTypedGroup<Bullet>;
@@ -18,10 +19,12 @@ class PlayState extends FlxState {
 		// Add Groups -- > Adding groups shows them in the state
 		characters = new FlxTypedGroup<Character>();
 		enemies = new FlxTypedGroup<Enemy>();
+		words = new FlxTypedGroup<FlxSprite>(12);
 		playerBullets = new FlxTypedGroup<Bullet>(50);
 		enemyBullets = new FlxTypedGroup<Bullet>(1000);
 		add(characters);
 		add(enemies);
+		add(words);
 		add(playerBullets);
 		add(enemyBullets);
 

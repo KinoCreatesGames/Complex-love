@@ -3,6 +3,7 @@ class CommandHUD extends FlxTypedGroup<FlxSprite> {
 	public var commandText:FlxText;
 	public var healthCounter:FlxText;
 	public var attackButton:FlxButton;
+	public var consoleButton:FlxButton;
 	public var player:Player;
 
 	public static inline var WIDTH = 200;
@@ -17,7 +18,7 @@ class CommandHUD extends FlxTypedGroup<FlxSprite> {
 		var position = new FlxPoint(FlxG.width - WIDTH, 0);
 		createBackground(position);
 		createText(position);
-		createBackground(position);
+		createButtons(position);
 	}
 
 	public function createBackground(position:FlxPoint) {
@@ -28,25 +29,31 @@ class CommandHUD extends FlxTypedGroup<FlxSprite> {
 	}
 
 	public function createText(position:FlxPoint) {
-		var y = 0;
+		var y = position.y + 200;
+		var x = position.x;
 		// assumed max is 3 for hp
-		healthCounter = new FlxText(position.x + 0, position.y + 200 + y,
-			WIDTH, 'HP: ${player.health}/3', 24);
+		healthCounter = new FlxText(x, y, WIDTH, 'HP: ${player.health}/3', 24);
 		y += 50;
-		commandText = new FlxText(position.x + 0, position.y + 200 + y, WIDTH,
-			'Commands', 24);
+		commandText = new FlxText(x, y, WIDTH, 'Commands', 24);
 
 		add(healthCounter);
 		add(commandText);
 	}
 
 	public function createButtons(position:FlxPoint) {
-		attackButton = new FlxButton(position.x + 0, position.y + 240,
-			'Attack', clickAttack);
+		var y = position.y + 300;
+		var x = position.x;
+		x += 35;
+		attackButton = new FlxButton(x, y, 'Attack', clickAttack);
+		y += 40;
+		consoleButton = new FlxButton(x, y, 'Console', clickConsole);
 		add(attackButton);
+		add(consoleButton);
 	}
 
 	public function clickAttack() {}
+
+	public function clickConsole() {}
 
 	override public function update(elapsed:Float) {
 		super.update(elapsed);

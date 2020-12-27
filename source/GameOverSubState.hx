@@ -6,7 +6,7 @@ class GameOverSubState extends FlxSubState {
 	}
 
 	public function createTitle() {
-		var text = new FlxText(0, 0, FlxG.width, 'Game Over');
+		var text = new FlxText(0, 0, 250, 'Game Over', 32);
 		text.screenCenter();
 		text.color = FlxColor.RED;
 		add(text);
@@ -15,7 +15,8 @@ class GameOverSubState extends FlxSubState {
 	public function createReturnToTitle() {
 		var button = new FlxButton(0, 0, 'Return To Title', clickReturnToTitle);
 		button.screenCenter();
-		button.y += 40;
+		button.x -= 25;
+		button.y += 60;
 		add(button);
 	}
 
