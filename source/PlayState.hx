@@ -66,8 +66,15 @@ class PlayState extends FlxState {
 
 	override public function update(elapsed:Float) {
 		super.update(elapsed);
+		updateGameOverState();
 		updatePauseState();
 		updateCollisions();
+	}
+
+	public function updateGameOverState() {
+		if (!player.alive) {
+			openSubState(new GameOverSubState(FlxColor.BLACK));
+		}
 	}
 
 	public function updatePauseState() {
@@ -81,11 +88,12 @@ class PlayState extends FlxState {
 		updateEnemyCollisions();
 	}
 
-	public function updatePlayerCollisions() {}
+	public function updatePlayerCollisions() {
+		FlxG.overlap(player, enemyBullets, enemyBulletTouchPlayer);
+	}
 
 	public function updateEnemyCollisions() {
 		FlxG.overlap(enemies, playerBullets, playerBulletTouchEnemy);
-		FlxG.overlap(player, enemyBullets, enemyBulletTouchPlayer);
 	}
 
 	public function playerBulletTouchEnemy(enemy:Enemy, bullet:Bullet) {
@@ -100,10 +108,15 @@ class PlayState extends FlxState {
 	}
 
 	public function enemyBulletTouchPlayer(player:Player, bullet:Bullet) {
+		shakeCamera();
 		player.health -= 1;
 		if (player.health <= 0) {
 			player.kill();
 		}
 		bullet.kill();
+	}
+
+	public function shakeCamera() {
+		FlxG.camera.shake(0.01, 0.1);
 	}
 }
