@@ -50,7 +50,7 @@ class WhiteKnight extends Enemy {
 		this.spawnerOne.update(elapsed);
 		if (patternTimer <= 0) {
 			moveDirection *= -1;
-			patternTimer = FlxG.random.int(1, 3);
+			patternTimer = 2.5 * 2;
 		} else {
 			patternTimer -= elapsed;
 		}

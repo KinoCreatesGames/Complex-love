@@ -4,7 +4,7 @@ import Types.CharacterType;
 import flixel.math.FlxVector;
 
 class Player extends Character {
-	static inline var SPEED:Float = 200;
+	static inline var SPEED:Float = 350;
 	static inline var BULLETCD:Float = 0.15;
 
 	public var fireCD:Float;
@@ -94,6 +94,7 @@ class Player extends Character {
 
 			velocity.set(SPEED, 0);
 			velocity.rotate(FlxPoint.weak(0, 0), newAngle);
+			this.bound();
 		}
 	}
 }
