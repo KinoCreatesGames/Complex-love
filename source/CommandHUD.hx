@@ -47,4 +47,13 @@ class CommandHUD extends FlxTypedGroup<FlxSprite> {
 	}
 
 	public function clickAttack() {}
+
+	override public function update(elapsed:Float) {
+		super.update(elapsed);
+		updatePlayerHealth();
+	}
+
+	public function updatePlayerHealth() {
+		healthCounter.text = 'HP: ${player.health}/3';
+	}
 }
