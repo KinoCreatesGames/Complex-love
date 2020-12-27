@@ -12,6 +12,7 @@ class PlayState extends FlxState {
 	public var playerBullets:FlxTypedGroup<Bullet>;
 	public var enemyBullets:FlxTypedGroup<Bullet>;
 	public var bossHealthBar:FlxBar;
+	public var playerCommandHUD:CommandHUD;
 
 	override public function create() {
 		// Add Groups -- > Adding groups shows them in the state
@@ -28,12 +29,19 @@ class PlayState extends FlxState {
 		var text = new FlxText(10, 10, 100, "Hello, World!");
 		var player = new Player(20, 0, PLAYER, playerBullets);
 		var boss = new WhiteKnight(20, 150, BOSS, enemyBullets);
+
+		this.player = player;
+
+		// Add UI
 		bossHealthBar = new FlxBar(0, 0, LEFT_TO_RIGHT, 400, 40, boss,
 			'health', 0, boss.health, true);
 		bossHealthBar.createFilledBar(FlxColor.GRAY, FlxColor.RED);
 		// bossHealthBar.color = FlxColor.RED;
 		bossHealthBar.screenCenter(FlxAxes.X);
-		this.player = player;
+
+		playerCommandHUD = new CommandHUD(this.player);
+
+		add(playerCommandHUD);
 
 		characters.add(player);
 		characters.add(boss);
@@ -77,6 +85,7 @@ class PlayState extends FlxState {
 
 	public function updateEnemyCollisions() {
 		FlxG.overlap(enemies, playerBullets, playerBulletTouchEnemy);
+		FlxG.overlap(player, enemyBullets, enemyBulletTouchPlayer);
 	}
 
 	public function playerBulletTouchEnemy(enemy:Enemy, bullet:Bullet) {
@@ -86,6 +95,14 @@ class PlayState extends FlxState {
 		if (enemy.health <= 0) {
 			bossHealthBar.kill();
 			enemy.kill();
+		}
+		bullet.kill();
+	}
+
+	public function enemyBulletTouchPlayer(player:Player, bullet:Bullet) {
+		player.health -= 1;
+		if (player.health <= 0) {
+			player.kill();
 		}
 		bullet.kill();
 	}

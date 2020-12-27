@@ -33,6 +33,7 @@ class Player extends Character {
 	public function updateFire(elapsed:Float) {
 		var firing = false;
 		firing = FlxG.keys.anyPressed([Z]);
+		firing = true;
 
 		if (firing && fireCD <= 0) {
 			fireCD = BULLETCD;
