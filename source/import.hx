@@ -11,4 +11,5 @@ import flixel.util.FlxColor;
 import flixel.util.FlxSave;
 
 using Lambda;
+using ext.MathExt;
 using flixel.util.FlxSpriteUtil;

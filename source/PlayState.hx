@@ -8,7 +8,7 @@ import flixel.util.FlxAxes;
 class PlayState extends FlxState {
 	public var characters:FlxTypedGroup<Character>;
 	public var enemies:FlxTypedGroup<Enemy>;
-	public var words:FlxTypedGroup<FlxSprite>;
+	public var words:FlxTypedGroup<Word>;
 	public var player:Player;
 	public var playerBullets:FlxTypedGroup<Bullet>;
 	public var enemyBullets:FlxTypedGroup<Bullet>;
@@ -19,7 +19,7 @@ class PlayState extends FlxState {
 		// Add Groups -- > Adding groups shows them in the state
 		characters = new FlxTypedGroup<Character>();
 		enemies = new FlxTypedGroup<Enemy>();
-		words = new FlxTypedGroup<FlxSprite>(12);
+		words = new FlxTypedGroup<Word>(12);
 		playerBullets = new FlxTypedGroup<Bullet>(50);
 		enemyBullets = new FlxTypedGroup<Bullet>(1000);
 		add(characters);
@@ -61,6 +61,8 @@ class PlayState extends FlxState {
 					character.screenCenter();
 				case BOSS:
 					character.screenCenter(FlxAxes.X);
+				// For White Knight Only
+				// untyped character.initialPosition = character.getPosition();
 				case WORD:
 					// Do nothing
 			}
@@ -92,8 +94,9 @@ class PlayState extends FlxState {
 	}
 
 	public function updatePlayerCollisions() {
-		FlxG.overlap(player, enemyBullets, enemyBulletTouchPlayer);
+		// FlxG.overlap(player, enemyBullets, enemyBulletTouchPlayer);
 		FlxG.overlap(player, enemies, playerTouchEnemy);
+		FlxG.overlap(player, words, playerTouchWord);
 	}
 
 	public function updateEnemyCollisions() {
@@ -111,6 +114,24 @@ class PlayState extends FlxState {
 		if (enemy.health <= 0) {
 			bossHealthBar.kill();
 			enemy.kill();
+		}
+	}
+
+	public function playerTouchWord(player:Player, word:Word) {
+		switch (word.wordType) {
+			case LOVE:
+				// Do nothing
+				word.kill();
+			case HATE:
+				// Do nothing
+				word.kill();
+			case CONSOLE:
+				// Do nothing
+
+				word.kill();
+			case SHAME:
+				// Do nothing
+				word.kill();
 		}
 	}
 

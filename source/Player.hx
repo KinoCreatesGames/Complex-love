@@ -17,6 +17,7 @@ class Player extends Character {
 			bulletGroup:FlxTypedGroup<Bullet>) {
 		super(x, y, type);
 		makeGraphic(16, 16, FlxColor.WHITE);
+
 		this.playerBullets = bulletGroup;
 		this.health = 3;
 		fireCD = BULLETCD;
